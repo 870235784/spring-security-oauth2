@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
@@ -36,6 +37,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private AuthorizationCodeServices authorizationCodeServices;
 
+    @Autowired
+    private ClientDetailsService jdbcClientDetailsService;
+
     private static final String[] GRANT_TYPE = {
             // 授权码
             "authorization_code",
@@ -57,7 +61,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         // 使用内存方式
-        clients.inMemory()
+        /*clients.inMemory()
                 // app_name
                 .withClient("app_tca")
                 // app_secret 必须加密
@@ -66,7 +70,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .scopes("all")
                 .autoApprove(false)
                 // 客户端回调地址
-                .redirectUris("https://www.baidu.com/");
+                .redirectUris("https://www.baidu.com/");*/
+        // 使用 database 方式
+        clients.withClientDetails(jdbcClientDetailsService);
     }
 
     @Override
