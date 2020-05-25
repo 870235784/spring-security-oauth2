@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
@@ -31,6 +32,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private TokenStore tokenStore;
+
+    @Autowired
+    private AuthorizationCodeServices authorizationCodeServices;
 
     private static final String[] GRANT_TYPE = {
             // 授权码
@@ -70,5 +74,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.authenticationManager(authenticationManager);
         endpoints.userDetailsService(userDetailsService);
         endpoints.tokenStore(tokenStore);
+        endpoints.authorizationCodeServices(authorizationCodeServices);
     }
 }
