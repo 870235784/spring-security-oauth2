@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
  * @author zhoua
  * @Date 2020/3/25
  */
-@Service("customUserDetailService")
-public class CustomUserDetailsService extends AbstractUserDetailsService {
+@Service("mobileUserDetailService")
+public class MobileUserDetailsService extends AbstractUserDetailsService {
 
     @Autowired
     private ISysUserService sysUserService;
 
     @Override
     public SysUser getUserByPrincipal(String principal) {
-        return sysUserService.getUserByUsername(principal);
+        return sysUserService.getUserByMobile(principal);
     }
 }

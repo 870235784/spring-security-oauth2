@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tca.security.oauth2.web.mapper.SysRoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.tca.security.oauth2.web.entity.SysRole">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="remark" property="remark" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+    </resultMap>
+
+    <insert id="insertBatchRolePermissionRel">
+        insert into sys_role_permission  (role_id, permission_id) values
+        <foreach collection="perIds" index="index" item="item" separator=",">
+            (#{roleId}, #{item})
+        </foreach>
+    </insert>
+
+    <delete id="deleteRolePermissionRelByRoleId">
+        delete from sys_role_permission where role_id = #{roleId}
+    </delete>
+
+    <select id="getRoleByUserId" parameterType="long" resultMap="BaseResultMap">
+        select DISTINCT r.*
+        FROM sys_user u
+        INNER JOIN sys_user_role ur ON u.id = ur.user_id
+        INNER JOIN sys_role r ON ur.role_id = r.id
+        WHERE u.id = #{userId}
+    </select>
+
+    <insert id="insertBatchUserRoleRel">
+        insert into sys_user_role  (user_id, role_id) values
+        <foreach collection="roleIds" index="index" item="item" separator=",">
+            (#{userId}, #{item})
+        </foreach>
+    </insert>
+
+    <delete id="deleteUserRoleRelByUserId">
+        delete from sys_user_role where user_id = #{userId}
+    </delete>
+
+</mapper>

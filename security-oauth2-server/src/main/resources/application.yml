@@ -1,12 +1,7 @@
 server:
   port: 8090
-#  servlet:
-#    context-path: /oauth
 
 spring:
-  redis:
-    host: localhost
-    port: 6379
   datasource:
       username: root
       password: admin
@@ -19,3 +14,7 @@ spring:
       maxWait: 60000
       minEvictableIdleTimeMillis: 300000
       validationQuery: SELECT 1 FROM DUAL
+
+logging:
+  level:
+    com.tca.security.oauth2.web.mapper: debug

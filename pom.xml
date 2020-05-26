@@ -10,6 +10,7 @@
     <modules>
         <module>security-oauth2-common</module>
         <module>security-oauth2-server</module>
+        <module>security-oauth2-resource</module>
     </modules>
 
 

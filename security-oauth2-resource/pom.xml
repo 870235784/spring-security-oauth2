@@ -9,8 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>security-oauth2-server</artifactId>
-
+    <artifactId>security-oauth2-resource</artifactId>
 
     <dependencies>
         <dependency>
@@ -42,44 +41,6 @@
         </dependency>
         -->
 
-        <!-- redis-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-
-        <!--mybatis-plus启动器-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-
-        <!--druid连接池-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <!-- thymeleaf 模块启动器
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        -->
-        <!--对Thymeleaf添加Spring Security标签支持
-         <dependency>
-             <groupId>org.thymeleaf.extras</groupId>
-             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-         </dependency>
-		 -->
 
         <!-- springboot 单元测试 -->
         <dependency>
