@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 /**
  * 认证服务器配置
@@ -37,6 +38,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private ClientDetailsService jdbcClientDetailsService;
 
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -60,7 +64,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager);
         endpoints.userDetailsService(customUserDetailsService);
-        endpoints.tokenStore(tokenStore);
+        endpoints.tokenStore(tokenStore).accessTokenConverter(jwtAccessTokenConverter);
         endpoints.authorizationCodeServices(jdbcAuthorizationCodeServices);
     }
 }

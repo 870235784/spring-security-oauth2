@@ -1,7 +1,7 @@
 package com.tca.security.resource.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,8 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
-import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
  * 资源服务器配置
@@ -28,24 +27,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
     @Value("${resource.id}")
     private String resourceId;
 
+    @Autowired
+    private TokenStore tokenStore;
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.resourceId(resourceId)
-                .tokenServices(tokenServices());
-    }
-
-    /**
-     * 配置token校验Service
-     * @return
-     */
-    @Bean
-    public ResourceServerTokenServices tokenServices() {
-        RemoteTokenServices remoteTokenServices = new RemoteTokenServices();
-        remoteTokenServices.setClientId("app_tca");
-        remoteTokenServices.setClientSecret("123456");
-        // 配置认证服务器 token校验, 一定要加上http://
-        remoteTokenServices.setCheckTokenEndpointUrl("http://localhost:8090/oauth/check_token");
-        return remoteTokenServices;
+                .tokenStore(tokenStore);
     }
 
     @Override
