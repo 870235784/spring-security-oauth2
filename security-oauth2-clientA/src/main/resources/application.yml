@@ -1,0 +1,25 @@
+server:
+  port: 9001
+
+spring:
+  thymeleaf:
+    cache: false
+
+security:
+  oauth2:
+    client:
+      # 客户端 key-secret 认证服务器通过客户端key-secret判断是否给当前客户端授权码code
+      # spring-security-oauth2 默认通过授权码模式进行认证
+      client-id: clienta
+      client-secret: 123456
+      # 请求认证地址
+      user-authorization-uri: http://localhost:8090/oauth/authorize
+      # 请求令牌地址
+      access-token-uri: http://localhost:8090/oauth/token
+    resource:
+      jwt:
+        # 当用户授权后会带着授权码重定向回客户端 localhost:9001/login?code=xxx
+        # 对应/login会自动的去获取令牌，并通过key-uri指定的地址去获取公钥校验令牌有效性，
+        # 然后完成本地认证与授权
+        key-uri: http://localhost:8090/oauth/token_key
+

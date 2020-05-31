@@ -11,6 +11,8 @@
         <module>security-oauth2-common</module>
         <module>security-oauth2-server</module>
         <module>security-oauth2-resource</module>
+        <module>security-oauth2-clientA</module>
+        <module>security-oauth2-clientB</module>
     </modules>
 
 
