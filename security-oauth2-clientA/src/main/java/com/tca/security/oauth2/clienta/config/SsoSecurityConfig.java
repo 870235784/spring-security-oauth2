@@ -19,6 +19,13 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter{
             // 不需认证可以访问/
             .antMatchers("/").permitAll()
             // 其他请求 均需要认证
-            .anyRequest().authenticated();
+            .anyRequest().authenticated()
+        .and()
+            // 当前应用退出
+            .logout()
+            // 当前退出成功后，跳转到认证服务器退出
+            .logoutSuccessUrl("http://localhost:8090/auth/logout")
+        .and()
+            .csrf().disable();
     }
 }

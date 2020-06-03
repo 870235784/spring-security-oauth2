@@ -1,20 +1,35 @@
 server:
   port: 8090
+  servlet:
+    context-path: /auth
 
 spring:
+  application:
+    name: oauth-server
   datasource:
-      username: root
-      password: admin
-      url: jdbc:mysql://127.0.0.1:3306/spring-security-oauth2?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      type: com.alibaba.druid.pool.DruidDataSource
-      initialSize: 8
-      minIdle: 5
-      maxActive: 20
-      maxWait: 60000
-      minEvictableIdleTimeMillis: 300000
-      validationQuery: SELECT 1 FROM DUAL
+    username: root
+    password: admin
+    url: jdbc:mysql://127.0.0.1:3306/spring-security-oauth2?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 8
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
 
 logging:
   level:
+    root: info
     com.tca.security.oauth2.web.mapper: debug
+
+eureka:
+  client:
+    registerWithEureka: true # 服务注册开关
+    fetchRegistry: true # 服务发现开关
+    serviceUrl: # 注册到哪一个Eureka Server服务注册中心，多个中间用逗号分隔
+      defaultZone: http://localhost:7001/eureka
+  instance:
+    instanceId: ${spring.application.name}:${server.port} # 指定实例ID,页面会显示主机名
+    preferIpAddress: true #访问路径可以显示IP地址

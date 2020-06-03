@@ -4,3 +4,19 @@ server:
 resource:
   id: product-server
 
+
+eureka:
+  client:
+    registerWithEureka: true # 服务注册开关
+    fetchRegistry: true # 服务发现开关
+    serviceUrl: # 注册到哪一个Eureka Server服务注册中心，多个中间用逗号分隔
+      defaultZone: http://localhost:7001/eureka
+  instance:
+    instanceId: ${spring.application.name}:${server.port} # 指定实例ID,页面会显示主机名
+    preferIpAddress: true  #访问路径可以显示IP地址eureka:
+
+
+spring:
+  application:
+    name: resource-server
+
