@@ -14,6 +14,7 @@
         <module>security-oauth2-clientA</module>
         <module>security-oauth2-clientB</module>
         <module>security-oauth2-eureka</module>
+        <module>security-oauth2-gateway</module>
     </modules>
 
 
