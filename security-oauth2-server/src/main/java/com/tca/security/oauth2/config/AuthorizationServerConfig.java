@@ -4,6 +4,7 @@ import com.tca.security.oauth2.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -41,6 +42,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private JwtAccessTokenConverter jwtAccessTokenConverter;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -57,6 +61,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        // 采用内存方式
+        /*clients.inMemory()
+                .withClient("mms")
+                .secret(passwordEncoder.encode(""))
+                .resourceIds("RESOURCE_ID")
+                .authorizedGrantTypes("password", "refresh_token")
+                .scopes("select")
+                .autoApprove(true)
+                .redirectUris("");*/
+        // 采用数据库方式
         clients.withClientDetails(jdbcClientDetailsService);
     }
 
